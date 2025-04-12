@@ -46,3 +46,8 @@ def get_video(video_id):
     if os.path.exists(filepath):
         return send_file(filepath, as_attachment=True)
     return "الملف غير موجود", 404
+
+# ✅ ads.txt route
+@app.route('/ads.txt')
+def ads_txt():
+    return "google.com, pub-2256570556261665, DIRECT, f08c47fec0942fa0", 200, {'Content-Type': 'text/plain'}
