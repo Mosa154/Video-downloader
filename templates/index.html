@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تحميل الفيديو</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+
+    <!-- إعلان أعلى -->
+    <div class="ad ad-top">
+      <!-- كود إعلان AdSense يجي هنا -->
+      <span>مساحة إعلانية 728x90</span>
+    </div>
+
+    <h1>أداة تحميل الفيديوهات</h1>
+    <p>انسخ رابط الفيديو من يوتيوب، تيك توك أو إنستجرام وضعه هنا:</p>
+
+    <form action="/download" method="post">
+      <input type="text" name="url" placeholder="ضع رابط الفيديو هنا" required>
+      <button type="submit">تحميل</button>
+    </form>
+
+    {% if download_url %}
+    <div class="result">
+      <p>رابط التحميل جاهز:</p>
+      <a href="{{ download_url }}" download>تحميل الفيديو</a>
+    </div>
+    {% endif %}
+
+    <!-- إعلان أسفل -->
+    <div class="ad ad-bottom">
+      <!-- كود إعلان AdSense يجي هنا -->
+      <span>مساحة إعلانية 300x250</span>
+    </div>
+
+  </div>
+</body>
+</html>
