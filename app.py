@@ -35,7 +35,8 @@ def download_video():
 
         return render_template('index.html', download_url=f'/get_video/{video_id}')
     except Exception as e:
-        return render_template('index.html', error=f"حدث خطأ أثناء التحميل: {str(e)}")
+    print("خطأ أثناء تحميل الفيديو:", e)  # هذا راح يطبع الخطأ في لوق Render
+    return render_template('index.html', error="فشل في تحميل الفيديو. تأكد من صحة الرابط.")
 
 
 
