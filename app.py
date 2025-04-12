@@ -15,11 +15,10 @@ def index():
 
 @app.route('/download', methods=['POST'])
 def download_video():
-    data = request.json
-    video_url = data.get('url')
+    video_url = request.form.get('url')  # ← هنا صار يقرأ من الفورم
 
     if not video_url:
-        return jsonify({'error': 'لم يتم إدخال رابط الفيديو'}), 400
+        return render_template('index.html', error='لم يتم إدخال رابط الفيديو')
 
     try:
         video_id = str(uuid.uuid4())
@@ -34,9 +33,11 @@ def download_video():
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([video_url])
 
-        return jsonify({'download_url': f'/get_video/{video_id}'})
+        return render_template('index.html', download_url=f'/get_video/{video_id}')
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return render_template('index.html', error=f"حدث خطأ أثناء التحميل: {str(e)}")
+
+
 
 @app.route('/get_video/<video_id>')
 def get_video(video_id):
@@ -46,4 +47,5 @@ def get_video(video_id):
     return "الملف غير موجود", 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    app.run(host='0.0.0.0', port=5000)
